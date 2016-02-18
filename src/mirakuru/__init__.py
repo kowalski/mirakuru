@@ -49,5 +49,15 @@ __all__ = (
 )
 
 
+try:
+    from logging import NullHandler
+except ImportError:
+    from logging import Handler
+
+    class NullHandler(Handler):
+
+        def emit(self, record):
+            pass
+
 # Set default logging handler to avoid "No handler found" warnings.
-logging.getLogger(__name__).addHandler(logging.NullHandler())
+logging.getLogger(__name__).addHandler(NullHandler())
